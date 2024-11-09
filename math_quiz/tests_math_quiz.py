@@ -1,30 +1,38 @@
 import unittest
-from math_quiz import function_A, function_B, function_C
+from math_quiz import generate_random_integer, get_random_operation, create_math_problem
 
+class TestMathQuiz(unittest.TestCase):
+    
+    def test_generate_random_integer(self):
+        """Test that generate_random_integer returns a value within the specified range."""
+        min_value = 1
+        max_value = 10
+        result = generate_random_integer(min_value, max_value)
+        self.assertGreaterEqual(result, min_value, "Result is below minimum value.")
+        self.assertLessEqual(result, max_value, "Result is above maximum value.")
 
-class TestMathGame(unittest.TestCase):
+    def test_get_random_operation(self):
+        """Test that get_random_operation returns one of the expected operations."""
+        operations = ['+', '-', '*']
+        result = get_random_operation()
+        self.assertIn(result, operations, "Result is not one of the expected operations.")
 
-    def test_function_A(self):
-        # Test if random numbers generated are within the specified range
-        min_val = 1
-        max_val = 10
-        for _ in range(1000):  # Test a large number of random values
-            rand_num = function_A(min_val, max_val)
-            self.assertTrue(min_val <= rand_num <= max_val)
+    def test_create_math_problem(self):
+        """Test that create_math_problem correctly formats the problem and calculates the answer."""
+        # Test addition
+        problem_text, answer = create_math_problem(3, 5, '+')
+        self.assertEqual(problem_text, "3 + 5", "Problem text does not match expected format.")
+        self.assertEqual(answer, 8, "Answer for addition is incorrect.")
 
-    def test_function_B(self):
-        # TODO
-        pass
+        # Test subtraction
+        problem_text, answer = create_math_problem(10, 4, '-')
+        self.assertEqual(problem_text, "10 - 4", "Problem text does not match expected format.")
+        self.assertEqual(answer, 6, "Answer for subtraction is incorrect.")
 
-    def test_function_C(self):
-            test_cases = [
-                (5, 2, '+', '5 + 2', 7),
-                ''' TODO add more test cases here '''
-            ]
+        # Test multiplication
+        problem_text, answer = create_math_problem(2, 3, '*')
+        self.assertEqual(problem_text, "2 * 3", "Problem text does not match expected format.")
+        self.assertEqual(answer, 6, "Answer for multiplication is incorrect.")
 
-            for num1, num2, operator, expected_problem, expected_answer in test_cases:
-                # TODO
-                pass
-
-if __name__ == "__main__":
+if __name__ == '__main__':
     unittest.main()
